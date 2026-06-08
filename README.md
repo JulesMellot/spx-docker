@@ -74,6 +74,11 @@ deployment. Deploy it as a "Docker Compose" application in Coolify and you get a
 second public link with a drag-and-drop web UI: anything you drop there lands directly
 in SPX's `ASSETS`/`DATAROOT` folders and is immediately visible to SPX.
 
+Don't add `ports:` mappings to the compose file — Coolify routes traffic to each
+service through its own proxy (Traefik) and generates a public FQDN automatically
+(you'll see `SERVICE_FQDN_SPX` / `SERVICE_FQDN_FILEBROWSER` in the deploy logs);
+hardcoded host port bindings will only collide with ports already in use on the VPS.
+
 Before deploying, edit the `name:` fields under `volumes:` in `docker-compose.yml` to
 match the actual volume names of your existing SPX deployment in Coolify. Also make
 sure to set a strong admin password for filebrowser (it grants direct filesystem

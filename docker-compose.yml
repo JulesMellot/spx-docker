@@ -1,8 +1,6 @@
 services:
   spx:
     build: .
-    ports:
-      - "5656:5656"
     volumes:
       - spx-assets:/SPX/ASSETS
       - spx-dataroot:/SPX/DATAROOT
@@ -10,8 +8,6 @@ services:
 
   filebrowser:
     image: filebrowser/filebrowser:v2-s6
-    ports:
-      - "8080:80"
     volumes:
       - spx-assets:/srv/ASSETS
       - spx-dataroot:/srv/DATAROOT
