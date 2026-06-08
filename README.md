@@ -49,4 +49,3 @@ Steps:
 2. Mount two persistent volumes: `/SPX/ASSETS` and `/SPX/DATAROOT`.
 3. (Optional) If CasparCG will fetch templates from SPX-GC over the public internet rather than a local network, set the `SPX_TEMPLATE_SOURCE` environment variable to the domain Coolify generates for the application.
 4. Deploy — Coolify will build the image, expose it behind its proxy, and provide a public link with automatic HTTPS.
-# spx-docker
