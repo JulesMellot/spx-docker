@@ -59,3 +59,23 @@ Steps:
 2. Mount two persistent volumes: `/SPX/ASSETS` and `/SPX/DATAROOT`.
 3. (Optional) If CasparCG will fetch templates from SPX-GC over the public internet rather than a local network, set the `SPX_TEMPLATE_SOURCE` environment variable to the domain Coolify generates for the application.
 4. Deploy — Coolify will build the image, expose it behind its proxy, and provide a public link with automatic HTTPS.
+
+## Uploading files to a remote deployment
+
+SPX-GC has no upload button — its built-in file browser only lists files that already
+exist on the server's filesystem (`/SPX/ASSETS`, `/SPX/DATAROOT`). That's transparent
+when SPX runs on your own machine, but on a remote deployment there's no way to get
+files you created locally into those folders from the browser.
+
+[docker-compose.yml](docker-compose.yml) solves this by running a small
+[filebrowser](https://github.com/filebrowser/filebrowser) sidecar alongside SPX-GC,
+mounting the **same** `spx-assets` / `spx-dataroot` volumes already used by your SPX
+deployment. Deploy it as a "Docker Compose" application in Coolify and you get a
+second public link with a drag-and-drop web UI: anything you drop there lands directly
+in SPX's `ASSETS`/`DATAROOT` folders and is immediately visible to SPX.
+
+Before deploying, edit the `name:` fields under `volumes:` in `docker-compose.yml` to
+match the actual volume names of your existing SPX deployment in Coolify. Also make
+sure to set a strong admin password for filebrowser (it grants direct filesystem
+access) — see its [documentation](https://filebrowser.org/configuration/authentication-method)
+for configuration options.
