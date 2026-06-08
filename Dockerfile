@@ -1,10 +1,10 @@
 # ─────────────────────────────────────────────
-#  SPX Graphics Controller — v1.4.0
+#  SPX Graphics Controller — v1.4.1
 #  Build from official source (master branch)
 # ─────────────────────────────────────────────
 FROM node:20-alpine
 
-LABEL description="SPX Graphics Controller 1.4.0" \
+LABEL description="SPX Graphics Controller 1.4.1" \
       org.opencontainers.image.source="https://github.com/TuomoKu/SPX-GC"
 
 WORKDIR /SPX
