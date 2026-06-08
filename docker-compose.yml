@@ -7,11 +7,14 @@ services:
     restart: unless-stopped
 
   filebrowser:
-    image: filebrowser/filebrowser:v2-s6
+    # Use the non-s6 image: the s6-overlay variant ignores the compose `user:`
+    # directive and forces UID 1000, which can't write to SPX's root-owned files.
+    image: filebrowser/filebrowser:v2
     user: "0:0" # SPX (running as root) owns the files in these volumes; filebrowser's default non-root user can't write to them otherwise
     volumes:
       - spx-assets:/srv/ASSETS
       - spx-dataroot:/srv/DATAROOT
+      - filebrowser-data:/database # persist the user/password DB across redeploys
     restart: unless-stopped
 
 volumes:
@@ -21,3 +24,4 @@ volumes:
   spx-dataroot:
     external: true
     name: spx-dataroot # ⚠️ replace with the name of the volume already mounted to /SPX/DATAROOT in your existing Coolify SPX deployment
+  filebrowser-data:
