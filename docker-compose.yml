@@ -8,6 +8,7 @@ services:
 
   filebrowser:
     image: filebrowser/filebrowser:v2-s6
+    user: "0:0" # SPX (running as root) owns the files in these volumes; filebrowser's default non-root user can't write to them otherwise
     volumes:
       - spx-assets:/srv/ASSETS
       - spx-dataroot:/srv/DATAROOT
