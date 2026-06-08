@@ -7,6 +7,16 @@ A minimal Docker image for [SPX Graphics Controller](https://github.com/TuomoKu/
 - `Dockerfile` — builds a lightweight `node:20-alpine` image, clones SPX-GC's `master` branch, installs production dependencies, and runs the controller on port `5656`.
 - `entrypoint.sh` — generates a default `config.json` on first launch and starts the server.
 
+## Staying up to date
+
+The Dockerfile always builds from SPX-GC's `master` branch, so the running app is
+always current. The version label/comments in the Dockerfile, however, are kept in
+sync automatically by [.github/workflows/update-spx-version.yml](.github/workflows/update-spx-version.yml):
+it checks the [latest SPX-GC release](https://github.com/TuomoKu/SPX-GC/releases/latest)
+daily and, if a new version was published, bumps the version references in the
+Dockerfile and pushes the change to this repo (which then triggers a fresh build/deploy
+on platforms like Coolify that watch this repository).
+
 ## Persistent data
 
 Two volumes should be mounted for persistence:
